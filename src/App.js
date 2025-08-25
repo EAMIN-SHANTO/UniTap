@@ -738,7 +738,7 @@ function App() {
               <InputGroup>
                 <Input
                   type="text"
-                  placeholder="Enter your Student ID (e.g., STU001, 22229999)"
+                  placeholder="Enter your Student ID (Ex. 21301429)"
                   value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && fetchStudentData()}
