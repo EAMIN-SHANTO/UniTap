@@ -1,6 +1,33 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
+
+// Global styles for mobile responsiveness
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Prevent zoom on input focus on iOS */
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"], input[type="search"], input[type="tel"],
+    input[type="color"] {
+      font-size: 16px;
+    }
+  }
+`;
 
 // Replace with your actual Google Apps Script Web App URL
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpGRSi8u3koPqvGKeAcST4LXlN7jBLi985C8mIySnfWPalwclkDqkg3ejThAMREBuasw/exec';
@@ -32,6 +59,12 @@ const NavContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
+  }
 `;
 
 const Logo = styled.div`
@@ -41,6 +74,10 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const LogoIcon = styled.div`
@@ -54,12 +91,24 @@ const LogoIcon = styled.div`
   color: white;
   font-weight: bold;
   font-size: 1.2rem;
+  
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
 `;
 
 const NavMenu = styled.div`
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+  }
 `;
 
 const NavButton = styled.button`
@@ -78,6 +127,13 @@ const NavButton = styled.button`
     color: white;
     transform: translateY(-2px);
   }
+  
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+    font-size: 13px;
+    flex: 1;
+    min-width: 100px;
+  }
 `;
 
 // Main Content Container
@@ -87,24 +143,45 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 40px 20px;
   width: 100%;
+  
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+  }
 `;
 
 const PageHeader = styled.div`
   text-align: center;
   color: white;
   margin-bottom: 40px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 25px;
+  }
 `;
 
 const PageTitle = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.7rem;
+  }
 `;
 
 const PageSubtitle = styled.p`
   font-size: 1.1rem;
   opacity: 0.9;
   margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
 `;
 
 // Footer Styles
@@ -122,6 +199,12 @@ const FooterContent = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0 15px;
+  }
 `;
 
 const FooterSection = styled.div`
@@ -163,6 +246,17 @@ const Card = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 15px;
+    margin: 10px 0;
+  }
 `;
 
 const StatusCard = styled(Card)`
@@ -176,6 +270,14 @@ const StatusNumber = styled.div`
   font-weight: bold;
   margin: 10px 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
 `;
 
 const StatusGrid = styled.div`
@@ -183,6 +285,16 @@ const StatusGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   margin: 20px 0;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 `;
 
 const StudentList = styled.div`
@@ -192,6 +304,18 @@ const StudentList = styled.div`
   margin: 20px 0;
   max-height: 400px;
   overflow-y: auto;
+  
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin: 15px 0;
+    max-height: 350px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px;
+    margin: 10px 0;
+    max-height: 300px;
+  }
 `;
 
 const StudentItem = styled.div`
@@ -203,6 +327,19 @@ const StudentItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    padding: 12px;
+    margin: 8px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px;
+    margin: 6px 0;
+  }
 `;
 
 const InputSection = styled.div`
@@ -214,6 +351,12 @@ const InputGroup = styled.div`
   gap: 10px;
   align-items: center;
   margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
 `;
 
 const Input = styled.input`
@@ -227,6 +370,12 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border-color: #667eea;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 14px 15px;
+    font-size: 16px;
+    width: 100%;
   }
 `;
 
@@ -250,6 +399,12 @@ const Button = styled.button`
     cursor: not-allowed;
     transform: none;
   }
+  
+  @media (max-width: 768px) {
+    padding: 14px 25px;
+    font-size: 16px;
+    width: 100%;
+  }
 `;
 
 const BalanceCard = styled(Card)`
@@ -263,6 +418,14 @@ const BalanceAmount = styled.div`
   font-weight: bold;
   margin: 10px 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
 `;
 
 const StudentInfo = styled.div`
@@ -270,6 +433,16 @@ const StudentInfo = styled.div`
   padding: 20px;
   border-radius: 10px;
   margin: 20px 0;
+  
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+    margin: 10px 0;
+  }
 `;
 
 const InfoRow = styled.div`
@@ -281,6 +454,12 @@ const InfoRow = styled.div`
   
   &:last-child {
     border-bottom: none;
+  }
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 5px;
+    margin: 8px 0;
   }
 `;
 
@@ -308,6 +487,16 @@ const TransactionItem = styled.div`
     props.type === 'Cafe Payment' ? '#FF5722' : 
     props.type === 'Attendance' ? '#9C27B0' : '#666'
   };
+  
+  @media (max-width: 768px) {
+    padding: 12px;
+    margin: 8px 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px;
+    margin: 6px 0;
+  }
 `;
 
 const TransactionHeader = styled.div`
@@ -315,6 +504,12 @@ const TransactionHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 `;
 
 const TransactionType = styled.span`
@@ -356,6 +551,11 @@ const LoadingMessage = styled.div`
 const RefreshButton = styled(Button)`
   background: linear-gradient(45deg, #FF9800, #FF5722);
   margin: 10px;
+  
+  @media (max-width: 768px) {
+    margin: 10px 0;
+    width: 100%;
+  }
 `;
 
 function App() {
@@ -489,6 +689,7 @@ function App() {
 
   return (
     <AppContainer>
+      <GlobalStyle />
       {/* Navbar */}
       <Navbar>
         <NavContent>
@@ -624,7 +825,13 @@ function App() {
           </StatusGrid>
 
           <Card>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '10px'
+            }}>
               <h3>👥 Current Passengers</h3>
               <RefreshButton onClick={fetchBusStatus}>
                 Refresh
@@ -684,7 +891,13 @@ function App() {
           </StatusGrid>
 
           <Card>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '10px'
+            }}>
               <h3>Today's Attendance ({attendanceStatus ? formatDate(attendanceStatus.date).split(',')[0] : 'Today'})</h3>
               <RefreshButton onClick={fetchAttendanceStatus}>
                 Refresh
