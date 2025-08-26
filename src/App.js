@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 // Replace with your actual Google Apps Script Web App URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpGRSi8u3koPqvGKeAcST4LXlN7jBLi985C8mIySnfWPalwclkDqkg3ejThAMREBuasw/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXOUU3IC8ZvF9GIzR5htghftWDehwBTc7mBg42MpPTZ8mn0DqUG_hf9I2GT7Bxc_WbVA/exec';
 
 // Styled Components
 const AppContainer = styled.div`
@@ -680,7 +680,7 @@ function App() {
 
   const formatAmount = (amount) => {
     if (amount === 0) return '—';
-    return amount > 0 ? `+$${amount}` : `-$${Math.abs(amount)}`;
+    return amount > 0 ? `+${amount} Taka` : `-${Math.abs(amount)} Taka`;
   };
 
   const formatTime = (dateString) => {
@@ -753,7 +753,7 @@ function App() {
             <>
               <BalanceCard>
                 <h2>Current Balance</h2>
-                <BalanceAmount>${studentData.balance}</BalanceAmount>
+                <BalanceAmount>{studentData.balance} Taka</BalanceAmount>
                 <p>Available for spending</p>
               </BalanceCard>
 
@@ -795,7 +795,7 @@ function App() {
                       </TransactionDate>
                       <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '5px' }}>
                         {transaction.description}
-                        {transaction.balance !== null && ` • Balance: $${transaction.balance}`}
+                        {transaction.balance !== null && ` • Balance: ${transaction.balance} Taka`}
                       </div>
                     </TransactionItem>
                   ))}
@@ -853,7 +853,7 @@ function App() {
                         Boarded: {formatTime(passenger.boardTime)}
                       </div>
                       <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-                        Balance: ${passenger.studentInfo.balance}
+                        Balance: {passenger.studentInfo.balance} Taka
                       </div>
                     </div>
                   </StudentItem>
@@ -972,7 +972,7 @@ function App() {
           
           <FooterSection>
             <h3>Contact</h3>
-            <p>UniTap@gmail.com</p>
+            <p>unitap@gmail.com</p>
           </FooterSection>
         </FooterContent>
         
