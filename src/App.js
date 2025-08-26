@@ -680,7 +680,7 @@ function App() {
 
   const formatAmount = (amount) => {
     if (amount === 0) return '—';
-    return amount > 0 ? `+${amount} Taka` : `-${Math.abs(amount)} Taka`;
+    return amount > 0 ? `+৳${amount} Taka` : `-৳${Math.abs(amount)} Taka`;
   };
 
   const formatTime = (dateString) => {
@@ -753,7 +753,7 @@ function App() {
             <>
               <BalanceCard>
                 <h2>Current Balance</h2>
-                <BalanceAmount>{studentData.balance} Taka</BalanceAmount>
+                <BalanceAmount>৳{studentData.balance} Taka</BalanceAmount>
                 <p>Available for spending</p>
               </BalanceCard>
 
@@ -795,7 +795,7 @@ function App() {
                       </TransactionDate>
                       <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '5px' }}>
                         {transaction.description}
-                        {transaction.balance !== null && ` • Balance: ${transaction.balance} Taka`}
+                        {transaction.balance !== null && ` • Balance: ৳${transaction.balance} Taka`}
                       </div>
                     </TransactionItem>
                   ))}
@@ -853,7 +853,7 @@ function App() {
                         Boarded: {formatTime(passenger.boardTime)}
                       </div>
                       <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-                        Balance: {passenger.studentInfo.balance} Taka
+                        Balance: ৳{passenger.studentInfo.balance} Taka
                       </div>
                     </div>
                   </StudentItem>
